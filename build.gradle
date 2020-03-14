@@ -43,8 +43,14 @@ apply from: rootProject.file("gradle/springboot.gradle")
 apply from: rootProject.file("gradle/dockerjib.gradle")
 
 dependencies {
-    // Other CAS dependencies/modules may be listed here...
-    compile "org.apereo.cas:cas-server-support-json-service-registry:6.2.0-RC2"
+  // Other CAS dependencies/modules may be listed here...
+    compile ( "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"){
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'
+    }
+    compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
+    compile "org.springframework.cloud:spring-cloud-context:2.2.0.RELEASE"
+    compile "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"
 }
 
 tasks.findByName("jibDockerBuild")
