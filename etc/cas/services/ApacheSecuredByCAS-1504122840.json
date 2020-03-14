@@ -1,0 +1,12 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^https://app1.razi.ac.ir/secured-by-cas(\\z|/.*)",
+  "name" : "Apache Secured By CAS",
+  "id" : 1504122840,
+  "description" : "CAS development Apache mod_auth_cas server with protection",
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  },
+  "evaluationOrder" : 1100
+}
+
