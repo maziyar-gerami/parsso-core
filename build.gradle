@@ -26,6 +26,8 @@ repositories {
     maven { url "https://repo.spring.io/milestone/" }
     maven { url "https://repo.spring.io/snapshot/" }
     maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
+    maven { url "https://jitpack.io" }
+
 }
 
 def casServerVersion = project.'cas.version'
@@ -56,8 +58,12 @@ dependencies {
     compile "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-saml:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-simple-mfa:${project.'cas.version'}"
-
+    // For updating MFA Token
     compile "org.apereo.cas:cas-server-core-tickets-api:${project.'cas.version'}"
+    // For SMS MFA
+    compile "org.apereo.cas:cas-server-core-util-api:${project.'cas.version'}"
+    compile "com.github.kavenegar:kavenegar-java:v2.0.1"
+
 }
 
 tasks.findByName("jibDockerBuild")
