@@ -2,7 +2,7 @@
 echo "--- Installing on `hostname`"
 
 systemctl stop tomcat
-rm -rf /opt/workspace/cas-overlay-template/build
+rm -rf /opt/workspace/backup/parsso-core/build
 rm -rf /etc/cas/config
 rm -rf /etc/cas/services
 
@@ -12,9 +12,9 @@ cd /opt/tomcat/latest/
 rm -rf webapps/cas work/Catalina/localhost/cas
 cd /
 
-cp -i /opt/workspace/cas-overlay-template/build/libs/cas.war /opt/tomcat/latest/webapps/
-cp -r /opt/workspace/cas-overlay-template/etc/cas/config /etc/cas/
-cp -r /opt/workspace/cas-overlay-template/etc/cas/services /etc/cas/
+cp -i /opt/workspace/backup/parsso-core/build/libs/cas.war /opt/tomcat/latest/webapps/
+cp -r /opt/workspace/backup/parsso-core/etc/cas/config /etc/cas/
+cp -r /opt/workspace/backup/parsso-core/etc/cas/services /etc/cas/
 
 chown root:tomcat /opt/tomcat/latest/webapps/cas.war
 chown root:tomcat /etc/cas/config/
