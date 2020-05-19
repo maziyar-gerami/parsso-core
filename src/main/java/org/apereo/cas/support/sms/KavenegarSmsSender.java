@@ -34,7 +34,8 @@ public class KavenegarSmsSender implements SmsSender {
             String sender = from;
             String receptor = to;
             String myMessage = message;
-            SendResult Result = api.send(sender, receptor, myMessage);
+            //SendResult Result = api.send(sender, receptor, myMessage);
+            SendResult Result = api.verifyLookup(receptor, message, "", "", "mfa");
             return true;
         } catch (HttpException e) {
 			LOGGER.error(e.getMessage(), e);

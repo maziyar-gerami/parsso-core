@@ -17,6 +17,10 @@
       "tel": "UDC_IDENTIFIER"
     }
   },
-  "evaluationOrder" : 1150
+  "evaluationOrder" : 1150,
+  "multifactorPolicy" : {
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy",
+    "multifactorAuthenticationProviders" : [ "java.util.LinkedHashSet", [ "mfa-simple" ] ]
+  }
 }
 
