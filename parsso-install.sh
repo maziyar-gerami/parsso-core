@@ -12,7 +12,7 @@ cd /opt/tomcat/latest/
 rm -rf webapps/cas work/Catalina/localhost/cas
 cd /
 
-cp -i /opt/workspace/parsso-core/build/libs/cas.war /opt/tomcat/latest/webapps/
+cp /opt/workspace/parsso-core/build/libs/cas.war /opt/tomcat/latest/webapps/
 cp -r /opt/workspace/parsso-core/etc/cas/config /etc/cas/
 cp -r /opt/workspace/parsso-core/etc/cas/services /etc/cas/
 

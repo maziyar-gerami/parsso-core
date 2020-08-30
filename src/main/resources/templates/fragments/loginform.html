@@ -14,10 +14,7 @@
 	    <div class="col-md">
             <!-- Login form template begins here -->
             <div th:fragment="loginform" class="row align-items-stretch">
-                <div class="card-header" th:if="${delegatedAuthenticationProviderPrimary == null}"
-                     th:replace="fragments/serviceui :: serviceUI">
-                    <a href="fragments/serviceui.html">service ui fragment</a>
-                </div>
+                
                 <div class="card-body col-md-6">
                     <form method="post" id="fm1" th:object="${credential}" action="login">
                         <div class="alert alert-danger alert-dismissible fade show" th:if="${#fields.hasErrors('*')}">
@@ -161,6 +158,7 @@
                                tabindex="6"
                                type="submit"
                                value="Login8"
+			       style="border-radius: 2.5rem;"
                         />
 
                         <span th:if="${recaptchaVersion=='v2'}" th:remove="tag">
@@ -181,6 +179,7 @@
                                     accesskey="l"
                                     th:text="#{screen.welcome.button.login}"
                                     tabindex="6"
+				  
                             />
                         </span>
 
@@ -220,7 +219,15 @@
 
                     <div th:replace="fragments/loginsidebar :: loginsidebar"/>
                 </div>
-				<div class="col-md-6 d-flex align-items-center justify-content-center"><img th:src="@{${#themes.code('parssoicon.img.file')}}" alt="Parsso" class="img-responsive center-block" style="padding-bottom: 50px;" width="90%" >
+				<div class="col-md-6 d-flex align-items-center justify-content-center">
+				<div>
+					<div class="card-header" th:if="${delegatedAuthenticationProviderPrimary == null}"
+						th:replace="fragments/serviceui :: serviceUI">
+						<a href="fragments/serviceui.html">service ui fragment</a>
+					</div>
+				
+					<img th:src="@{${#themes.code('parssoicon.img.file')}}" alt="Parsso" class="img-responsive center-block" style="padding-bottom: 4.5rem;padding-top:1rem" width="90%" >
+				</div>
 			</div>
 			
             </div>	
@@ -232,3 +239,4 @@
 	</main>
 </body>
 </html>
+

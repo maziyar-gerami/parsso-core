@@ -25,7 +25,7 @@ repositories {
     maven { url "https://build.shibboleth.net/nexus/content/repositories/releases/" }
     maven { url "https://repo.spring.io/milestone/" }
     maven { url "https://repo.spring.io/snapshot/" }
-//    maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
+    maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
     maven { url "https://jitpack.io" }
 
 }
@@ -49,10 +49,9 @@ apply from: rootProject.file("gradle/dockerjib.gradle")
 
 dependencies {
   // Other CAS dependencies/modules may be listed here...
-    compile ( "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}")
+    compile ( "org.apereo.cas:cas-server-support-mongo-service-registry:${casServerVersion}")
     {
-        exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'
-        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'
+       exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'
     }
     compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
     compile "org.springframework.cloud:spring-cloud-context:2.2.0.RELEASE"
@@ -64,12 +63,7 @@ dependencies {
     // For SMS MFA
     compile "org.apereo.cas:cas-server-core-util-api:${project.'cas.version'}"
     compile "com.github.kavenegar:kavenegar-java:v2.0.1"
-    // To store ticketRegistry in mongoDB
-    compile "org.apereo.cas:cas-server-support-mongo-ticket-registry:${casServerVersion}"
-    // To generate events and store them in mongoDB    
-    compile "org.apereo.cas:cas-server-core-events:${project.'cas.version'}"
-    compile "org.apereo.cas:cas-server-support-events-mongo:${project.'cas.version'}"
-    compile "org.apereo.cas:cas-server-support-audit-mongo:${project.'cas.version'}"
+
 }
 
 tasks.findByName("jibDockerBuild")

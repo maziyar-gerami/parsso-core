@@ -63,3 +63,15 @@ header > .navbar{
 .sidebar-content{
 	font-size:0.75rem;
 }
+
+#serviceui.alert {
+    padding-right: 0.5rem;
+    border-radius: 1rem;
+}
+
+.btn-submit {
+    background-color: #007bff;
+}
+footer {
+    position: absolute;
+}

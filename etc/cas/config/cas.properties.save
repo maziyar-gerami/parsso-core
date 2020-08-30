@@ -25,7 +25,7 @@ cas.authn.ldap[0].useSsl:               false
 cas.authn.ldap[0].useStartTls:          false
 cas.authn.ldap[0].type:AUTHENTICATED
 cas.authn.ldap[0].ldapUrl: ldap://localhost:10389
-cas.authn.ldap[0].baseDn: ou=people,dc=partition1, dc=com
+cas.authn.ldap[0].baseDn: ou=people,dc=example, dc=com
 cas.authn.ldap[0].searchFilter: uid={user}
 cas.authn.ldap[0].bindDn: uid=admin,ou=system
 cas.authn.ldap[0].bindCredential: secretAPA
@@ -37,7 +37,7 @@ cas.authn.attributeRepository.ldap[0].useStartTls:      false
 cas.authn.attributeRepository.ldap[0].ldapUrl:          ldap://localhost:10389
 cas.authn.attributeRepository.ldap[0].validatePeriod:   270
 cas.authn.attributeRepository.ldap[0].searchFilter:     uid={user}
-cas.authn.attributeRepository.ldap[0].baseDn:           ou=People, dc=partition1, dc=com
+cas.authn.attributeRepository.ldap[0].baseDn:           ou=People, dc=example, dc=com
 cas.authn.attributeRepository.ldap[0].bindDn:           uid=admin,ou=system
 cas.authn.attributeRepository.ldap[0].bindCredential:   secretAPA
  
@@ -50,9 +50,6 @@ cas.authn.attributeRepository.ldap[0].attributes.cn:            cn
 cas.authn.attributeRepository.ldap[0].attributes.mobile:     mobile
 cas.authn.attributeRepository.ldap[0].attributes.ou:     ou
 
-cas.authn.attributeRepository.expirationTime=0
-cas.authn.attributeRepository.expirationTimeUnit=seconds
-cas.authn.attributeRepository.merger=multivalued
 
 ## Active Directory ldap
 #cas.authn.ldap[0].order:                0
@@ -139,12 +136,5 @@ cas.serviceRegistry.mongo.collection=casServiceRegistry
 cas.serviceRegistry.mongo.databaseName=parssodb
 
 ## Service Registry Init (to be removed after init)
-#cas.serviceRegistry.initFromJson:      true
-
-# Ticket registry
-cas.ticket.registry.mongo.clientUri:   ${mongo.uri}
-# Events
-cas.events.mongo.clientUri:   ${mongo.uri}
-cas.audit.mongo.clientUri:   ${mongo.uri}
-cas.audit.mongo.asynchronous=true
-
+#cas.serviceRegistry.initFrom
+Json:      true

@@ -1,0 +1,87 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "^https://parsso.razi.ac.ir/cas-management(\\z|/.*)",
+  "name": "CAS management",
+  "id": 1597956155555,
+  "description": "New Definition CAS  Management",
+  "expirationPolicy": {
+    "@class": "org.apereo.cas.services.DefaultRegisteredServiceExpirationPolicy",
+    "deleteWhenExpired": false,
+    "notifyWhenDeleted": false
+  },
+  "proxyPolicy": {
+    "@class": "org.apereo.cas.services.RefuseRegisteredServiceProxyPolicy"
+  },
+  "evaluationOrder": 3,
+  "usernameAttributeProvider": {
+    "@class": "org.apereo.cas.services.DefaultRegisteredServiceUsernameProvider",
+    "canonicalizationMode": "NONE",
+    "encryptUsername": false
+  },
+  "logoutType": "BACK_CHANNEL",
+  "requiredHandlers": [
+    "java.util.HashSet",
+    []
+  ],
+  "environments": [
+    "java.util.HashSet",
+    []
+  ],
+  "attributeReleasePolicy": {
+    "@class": "org.apereo.cas.services.ReturnAllAttributeReleasePolicy",
+    "principalAttributesRepository": {
+      "@class": "org.apereo.cas.authentication.principal.DefaultPrincipalAttributesRepository",
+      "mergingStrategy": "MULTIVALUED",
+      "ignoreResolvedAttributes": false
+    },
+    "consentPolicy": {
+      "@class": "org.apereo.cas.services.consent.DefaultRegisteredServiceConsentPolicy",
+      "enabled": true,
+      "order": 0
+    },
+    "authorizedToReleaseCredentialPassword": false,
+    "authorizedToReleaseProxyGrantingTicket": false,
+    "excludeDefaultAttributes": false,
+    "authorizedToReleaseAuthenticationAttributes": false,
+    "order": 0
+  },
+  "multifactorPolicy": {
+    "@class": "org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy",
+    "multifactorAuthenticationProviders": [
+      "java.util.HashSet",
+      []
+    ],
+    "failureMode": "UNDEFINED",
+    "bypassEnabled": false
+  },
+  "accessStrategy": {
+    "@class": "org.apereo.cas.services.DefaultRegisteredServiceAccessStrategy",
+    "order": 0,
+    "enabled": true,
+    "ssoEnabled": true,
+    "delegatedAuthenticationPolicy": {
+      "@class": "org.apereo.cas.services.DefaultRegisteredServiceDelegatedAuthenticationPolicy",
+      "allowedProviders": [
+        "java.util.ArrayList",
+        []
+      ],
+      "permitUndefined": true,
+      "exclusive": false
+    },
+    "requireAllAttributes": true,
+    "requiredAttributes": {
+      "@class": "java.util.LinkedHashMap"
+    },
+    "rejectedAttributes": {
+      "@class": "java.util.LinkedHashMap"
+    },
+    "caseInsensitive": false
+  },
+  "properties": {
+    "@class": "java.util.LinkedHashMap"
+  },
+  "contacts": [
+    "java.util.ArrayList",
+    []
+  ]
+}
