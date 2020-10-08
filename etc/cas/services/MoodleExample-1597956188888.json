@@ -1,0 +1,77 @@
+{
+  "id" : 1597956188888,
+  "name" : "Moodle Example ",
+  "description" : "آموزش الکترونیک",
+  "expirationPolicy" : {
+    "deleteWhenExpired" : false,
+    "notifyWhenDeleted" : false,
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceExpirationPolicy"
+  },
+  "usernameAttributeProvider" : {
+    "canonicalizationMode" : "NONE",
+    "encryptUsername" : false,
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceUsernameProvider"
+  },
+  "evaluationOrder" : 1,
+  "serviceId" : "^http://172.17.194.77/moodle(\\z|/.*)",
+  "proxyPolicy" : {
+    "@class" : "org.apereo.cas.services.RefuseRegisteredServiceProxyPolicy"
+  },
+  "requiredHandlers" : [ "java.util.HashSet", [ ] ],
+  "environments" : [ "java.util.HashSet", [ ] ],
+  "attributeReleasePolicy" : {
+    "authorizedToReleaseCredentialPassword" : false,
+    "authorizedToReleaseProxyGrantingTicket" : false,
+    "excludeDefaultAttributes" : false,
+    "authorizedToReleaseAuthenticationAttributes" : false,
+    "order" : 0,
+    "consentPolicy" : {
+      "enabled" : true,
+      "order" : 0,
+      "@class" : "org.apereo.cas.services.consent.DefaultRegisteredServiceConsentPolicy"
+    },
+    "principalAttributesRepository" : {
+      "mergingStrategy" : "MULTIVALUED",
+      "ignoreResolvedAttributes" : false,
+      "@class" : "org.apereo.cas.authentication.principal.DefaultPrincipalAttributesRepository"
+    },
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  },
+  "logoutType" : "BACK_CHANNEL",
+  "accessStrategy" : {
+    "enabled" : true,
+    "order" : 0,
+    "ssoEnabled" : true,
+    "delegatedAuthenticationPolicy" : {
+      "allowedProviders" : [ "java.util.ArrayList", [ ] ],
+      "permitUndefined" : true,
+      "exclusive" : false,
+      "@class" : "org.apereo.cas.services.DefaultRegisteredServiceDelegatedAuthenticationPolicy"
+    },
+    "requiredAttributes" : {
+      "ou" : [ "java.util.HashSet", [ "1598656906152", "1598656906151", "1598656906150", "1598656906153" ] ],
+      "@class" : "java.util.HashMap"
+    },
+    "requireAllAttributes" : true,
+    "caseInsensitive" : false,
+    "rejectedAttributes" : {
+      "@class" : "java.util.HashMap"
+    },
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceAccessStrategy"
+  },
+  "properties" : {
+    "@class" : "java.util.LinkedHashMap"
+  },
+  "multifactorPolicy" : {
+    "multifactorAuthenticationProviders" : [ "java.util.HashSet", [ ] ],
+    "failureMode" : "UNDEFINED",
+    "bypassEnabled" : false,
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy"
+  },
+  "contacts" : [ "java.util.ArrayList", [ {
+    "name" : "bardia",
+    "email" : "bardia.akbari@gmail.com",
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceContact"
+  } ] ],
+  "@class" : "org.apereo.cas.services.RegexRegisteredService"
+}

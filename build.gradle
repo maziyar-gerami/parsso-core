@@ -65,11 +65,11 @@ dependencies {
     compile "org.apereo.cas:cas-server-core-util-api:${project.'cas.version'}"
     compile "com.github.kavenegar:kavenegar-java:v2.0.1"
     // To store ticketRegistry in mongoDB
-    compile "org.apereo.cas:cas-server-support-mongo-ticket-registry:${casServerVersion}"
+ //   compile "org.apereo.cas:cas-server-support-mongo-ticket-registry:${casServerVersion}"
     // To generate events and store them in mongoDB    
-    compile "org.apereo.cas:cas-server-core-events:${project.'cas.version'}"
-    compile "org.apereo.cas:cas-server-support-events-mongo:${project.'cas.version'}"
-    compile "org.apereo.cas:cas-server-support-audit-mongo:${project.'cas.version'}"
+  //  compile "org.apereo.cas:cas-server-core-events:${project.'cas.version'}"
+ //   compile "org.apereo.cas:cas-server-support-events-mongo:${project.'cas.version'}"
+//    compile "org.apereo.cas:cas-server-support-audit-mongo:${project.'cas.version'}"
 }
 
 tasks.findByName("jibDockerBuild")
