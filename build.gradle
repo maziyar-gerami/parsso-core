@@ -76,6 +76,12 @@ dependencies {
     compile "org.apereo.cas:cas-server-support-audit-mongo:${project.'cas.version'}"
     // To support SAML Protocol
     compile "org.apereo.cas:cas-server-support-saml-idp:${project.'cas.version'}"
+    
+    // To support Google Authenticator
+    compile "org.apereo.cas:cas-server-support-gauth:${project.'cas.version'}"
+    // To support ACCEPTTO
+    //compile "org.apereo.cas:cas-server-support-acceptto-mfa:${project.'cas.version'}"
+
 }
 
 tasks.findByName("jibDockerBuild")
