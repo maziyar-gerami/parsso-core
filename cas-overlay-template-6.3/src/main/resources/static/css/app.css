@@ -1,0 +1,77 @@
+
+body {
+  background: url("../images/pixle-background.jpg") top center repeat-x;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: IRANSans, Helvetica, Arial, sans-serif;
+}
+html{
+	direction:rtl;
+}
+/*
+// Views
+@import "views/login";
+@import "views/dashboard";
+
+// Global rules
+*/
+.rtl {
+  direction: rtl;
+}
+
+.input-ltr {
+  
+    direction: ltr;
+  
+}
+
+.card .card-header {
+  background: #fff;
+}
+
+.link-unstyled {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+
+.wizard-tab-content {
+  direction: rtl;
+}
+
+.login .card{
+  background: hsla(0,0%,95%,.8);
+}
+header > .navbar{
+	background-color: #007bff;
+}
+.alert{
+	padding: 0.6rem 2.5rem;
+	font-size:small;
+}
+.sidebar-content{
+	font-size:0.75rem;
+}
+
+#serviceui.alert {
+    padding-right: 0.5rem;
+    border-radius: 1rem;
+}
+
+.btn-submit {
+    background-color: #007bff;
+}
+footer {
+    position: absolute;
+}

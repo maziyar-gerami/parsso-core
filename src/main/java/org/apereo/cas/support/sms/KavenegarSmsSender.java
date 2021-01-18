@@ -1,6 +1,6 @@
 package org.apereo.cas.support.sms;
 
-import org.apereo.cas.util.io.SmsSender;
+import org.apereo.cas.notifications.sms.SmsSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

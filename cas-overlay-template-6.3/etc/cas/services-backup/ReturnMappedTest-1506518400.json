@@ -1,0 +1,26 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^https://app1.razi.ac.ir/return-mapped(\\z|/.*)",
+  "name" : "Return Mapped Test",
+  "id" : 1506518400,
+  "description" : "Display results of a Return Mapped attr release policy",
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnMappedAttributeReleasePolicy",
+    "allowedAttributes" : {
+      "@class" : "java.util.TreeMap",
+      "cn" : "cn",
+      "displayName" : "displayName",
+      "givenName" : "Formatted Name",
+      "mail" : "EmailAddress",
+      "sn" : "sn",
+      "uid" : "uid",
+      "tel": "UDC_IDENTIFIER"
+    }
+  },
+  "evaluationOrder" : 1150,
+  "multifactorPolicy" : {
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy",
+    "multifactorAuthenticationProviders" : [ "java.util.LinkedHashSet", [ "mfa-simple" ] ]
+  }
+}
+

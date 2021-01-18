@@ -4,9 +4,19 @@ buildscript {
         gradlePluginPortal()
         mavenCentral()
         jcenter()
-        maven { url "https://repo.spring.io/libs-milestone" }
-        maven { url "https://repo.spring.io/libs-snapshot" }
-        maven { url "https://plugins.gradle.org/m2/" }
+        maven { 
+            url "https://repo.spring.io/libs-milestone" 
+            mavenContent { releasesOnly() }
+        }
+        maven { 
+            url "https://repo.spring.io/libs-snapshot" 
+            mavenContent { snapshotsOnly() }
+        }
+        maven { 
+            url "https://plugins.gradle.org/m2/" 
+            mavenContent { releasesOnly() }
+        }
+	maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath "de.undercouch:gradle-download-task:${project.gradleDownloadTaskVersion}"
@@ -21,13 +31,28 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    maven { url "https://build.shibboleth.net/nexus/content/repositories/releases/" }
-    maven { url "https://repo.spring.io/milestone/" }
-    maven { url "https://repo.spring.io/snapshot/" }
-//    maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
-    maven { url "https://jitpack.io" }
+    maven { 
+        url "https://oss.sonatype.org/content/repositories/snapshots" 
+        mavenContent { snapshotsOnly() }
+    }
+    maven { 
+        mavenContent { releasesOnly() }
+        url "https://build.shibboleth.net/nexus/content/repositories/releases/" 
+    }
+    maven { 
+        mavenContent { releasesOnly() }
+        url "https://repo.spring.io/milestone/" 
+    }
+    maven { 
+        url "https://repo.spring.io/snapshot/" 
+        mavenContent { snapshotsOnly() }
+    }
+    //maven { 
+        //mavenContent { snapshotsOnly() }
+        //url "https://oss.jfrog.org/artifactory/oss-snapshot-local" 
+    //}
 
+maven { url "https://jitpack.io" }
 }
 
 def casServerVersion = project.'cas.version'
@@ -48,13 +73,29 @@ apply from: rootProject.file("gradle/springboot.gradle")
 apply from: rootProject.file("gradle/dockerjib.gradle")
 
 dependencies {
-  // Other CAS dependencies/modules may be listed here...
-    compile ( "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}")
-    {
-        exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'
-        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'
+    // Add modules in format compatible with overlay casModules property
+    if (project.hasProperty("casModules")) {
+        def dependencies = project.getProperty("casModules").split(",")
+        dependencies.each {
+            def projectsToAdd = rootProject.subprojects.findAll {project ->
+                project.name == "cas-server-core-${it}" || project.name == "cas-server-support-${it}"
+            }
+            projectsToAdd.each {implementation it}
+        }
     }
+    // CAS dependencies/modules may be listed here statically...
+    implementation "org.apereo.cas:cas-server-webapp-init:${casServerVersion}"
+
+
+
+// Other CAS dependencies/modules may be listed here...	
+    compile ( "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}")	
+    {	
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'	
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'	
+    }	
     compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
+compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
     compile "org.springframework.cloud:spring-cloud-context:2.2.0.RELEASE"
     compile "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-saml:${project.'cas.version'}"
@@ -81,6 +122,14 @@ dependencies {
     compile "org.apereo.cas:cas-server-support-gauth:${project.'cas.version'}"
     // To support ACCEPTTO
     //compile "org.apereo.cas:cas-server-support-acceptto-mfa:${project.'cas.version'}"
+
+compile "org.apereo.cas:cas-server-core-notifications:${project.'cas.version'}"
+
+compile "org.apereo.cas:cas-server-core-api-configuration-model:${project.'cas.version'}"
+
+compile "org.apereo.cas:cas-server-support-qr-authentication:${project.'cas.version'}"
+
+
 
 }
 
@@ -119,26 +168,3 @@ idea {
         downloadSources = true
     }
 }
-
-bootWar {
-    entryCompression = ZipEntryCompression.STORED
-    overlays {
-        // https://docs.freefair.io/gradle-plugins/current/reference/#_io_freefair_war_overlay
-        // Note: The "excludes" property is only for files in the war dependency.
-        // If a jar is excluded from the war, it could be brought back into the final war as a dependency
-        // of non-war dependencies. Those should be excluded via normal gradle dependency exclusions.
-        cas {
-            from "org.apereo.cas:cas-server-webapp${project.appServer}:${casServerVersion}@war"
-            provided = false
-            //excludes = ["WEB-INF/lib/somejar-1.0*"]
-        }
-    }
-}
-
-
-wrapper {
-    distributionType = Wrapper.DistributionType.BIN
-    gradleVersion = "${project.gradleVersion}"
-}
-
-

@@ -1,0 +1,140 @@
+
+cas.server.name=https://parsso.razi.ac.ir
+cas.server.prefix=${cas.server.name}/cas
+
+logging.config: file:/etc/cas/config/log4j2.xml
+
+# cas.authn.accept.users=
+
+# Configure ticket granting cookie encryption
+cas.tgc.secure:true
+cas.tgc.crypto.signing.key:           2Oj5jzC2Mr-pkopkPxnLk2jlGT3gDMx5-rkG4gpZoP-IIz8C4ElupOUDUbSH60NNkM2BFfVAW0WMSjbTASQPGQ
+cas.tgc.crypto.encryption.key:        r88iOMdbRMLOkITV54kax4WgadTdzUYSBXNhOp_oqS0
+
+# Configure spring webflow encryption
+cas.webflow.crypto.signing.key:       xuHC2I-FzPO2PbT7FC7X62ZtrchcR8HvzsyMx1Hlgrz4DYXxkUr_C5Ze6cGxB6IiTfLWPpGXaye7ZWoltkI8gQ
+cas.webflow.crypto.encryption.key:    9AidJvXpuonVlWRvA52pmQ==
+
+#Configure service registry
+cas.serviceRegistry.initFromJson=true
+cas.serviceRegistry.json.location=file:/etc/cas/services
+## ApacheDS ldap
+cas.authn.ldap[0].order:                1
+cas.authn.ldap[0].name:                 Apache Directory
+cas.authn.ldap[0].useSsl:               false
+cas.authn.ldap[0].useStartTls:          false
+cas.authn.ldap[0].type:AUTHENTICATED
+cas.authn.ldap[0].ldapUrl: ldap://localhost:10389
+cas.authn.ldap[0].baseDn: ou=people,dc=example, dc=com
+cas.authn.ldap[0].searchFilter: uid={user}
+cas.authn.ldap[0].bindDn: uid=admin,ou=system
+cas.authn.ldap[0].bindCredential: secretAPA
+ 
+#ApacheDS Attribute Resolution
+cas.authn.attributeRepository.ldap[0].order:            1
+cas.authn.attributeRepository.ldap[0].useSsl:           false
+cas.authn.attributeRepository.ldap[0].useStartTls:      false
+cas.authn.attributeRepository.ldap[0].ldapUrl:          ldap://localhost:10389
+cas.authn.attributeRepository.ldap[0].validatePeriod:   270
+cas.authn.attributeRepository.ldap[0].searchFilter:     uid={user}
+cas.authn.attributeRepository.ldap[0].baseDn:           ou=People, dc=example, dc=com
+cas.authn.attributeRepository.ldap[0].bindDn:           uid=admin,ou=system
+cas.authn.attributeRepository.ldap[0].bindCredential:   secretAPA
+ 
+cas.authn.attributeRepository.ldap[0].attributes.uid:            uid
+cas.authn.attributeRepository.ldap[0].attributes.displayName:   displayName
+cas.authn.attributeRepository.ldap[0].attributes.givenName:     givenName
+cas.authn.attributeRepository.ldap[0].attributes.sn:     sn
+cas.authn.attributeRepository.ldap[0].attributes.mail:          mail
+cas.authn.attributeRepository.ldap[0].attributes.cn:            cn
+cas.authn.attributeRepository.ldap[0].attributes.mobile:     mobile
+cas.authn.attributeRepository.ldap[0].attributes.ou:     ou
+
+
+## Active Directory ldap
+#cas.authn.ldap[0].order:                0
+#cas.authn.ldap[0].name:                 Active Directory
+#cas.authn.ldap[0].type:                 AD
+#cas.authn.ldap[0].useSsl:               false
+#cas.authn.ldap[0].useStartTls:          false
+#cas.authn.ldap[0].ldapUrl:              ldap://172.17.194.142:389
+#cas.authn.ldap[0].validatePeriod:       270
+#cas.authn.ldap[0].poolPassivator:       NONE
+#cas.authn.ldap[0].searchFilter:         sAMAccountName={user}
+#cas.authn.ldap[0].baseDn:               ou=People,dc=APA,dc=loc
+#cas.authn.ldap[0].dnFormat:             cn=%s,ou=People,dc=APA,dc=loc
+#cas.authn.ldap[0].bindDn:               Administrator@APA.loc
+#cas.authn.ldap[0].bindCredential:       APA123!@#
+
+#AD Attribute Resolution
+
+#cas.authn.attributeRepository.ldap[0].order:            0
+#cas.authn.attributeRepository.ldap[0].useSsl:           false
+#cas.authn.attributeRepository.ldap[0].useStartTls:      false
+#cas.authn.attributeRepository.ldap[0].ldapUrl:          ldap://172.17.194.142:389
+#cas.authn.attributeRepository.ldap[0].validatePeriod:   270
+#cas.authn.attributeRepository.ldap[0].searchFilter:     sAMAccountName={user}
+#cas.authn.attributeRepository.ldap[0].baseDn:           ou=People, dc=APA, dc=loc
+#cas.authn.attributeRepository.ldap[0].bindDn:           Administrator@APA.loc
+#cas.authn.attributeRepository.ldap[0].bindCredential:   APA123!@#
+
+#cas.authn.attributeRepository.ldap[0].attributes.cn:            uid
+#cas.authn.attributeRepository.ldap[0].attributes.displayName:   displayName
+#cas.authn.attributeRepository.ldap[0].attributes.givenName:     givenName
+#cas.authn.attributeRepository.ldap[0].attributes.mail:          mail
+#cas.authn.attributeRepository.ldap[0].attributes.sn:            sn
+#cas.authn.attributeRepository.ldap[0].attributes.telephoneNumber:     tel
+
+## Mail Server Configuration
+
+#spring.mail.host=smtp.gmail.com
+#spring.mail.port=587
+#spring.mail.username=ParssoServer
+#spring.mail.password=APA123!@#
+## Other properties for mail server
+#spring.mail.properties.mail.smtp.auth=true
+#spring.mail.properties.mail.smtp.connectiontimeout=5000
+#spring.mail.properties.mail.smtp.timeout=5000
+#spring.mail.properties.mail.smtp.writetimeout=5000
+# TLS , port 587
+#spring.mail.properties.mail.smtp.starttls.enable=true
+
+## CAS MFA Configuration
+
+#cas.authn.mfa.globalProviderId=mfa-simple
+#cas.authn.mfa.simple.mail.from=ParssoServer@gmail.com
+#cas.authn.mfa.simple.mail.subject=Parsso MFA Token
+#cas.authn.mfa.simple.mail.text=Hello! Your requested CAS token is %s
+#cas.authn.mfa.simple.mail.attributeName=mail
+cas.authn.mfa.simple.timeToKillInSeconds=90
+cas.authn.mfa.simple.tokenLength=4
+
+## SMS Provider Kavenegar
+cas.smsProvider.kavenegar.apiKey=366A333130424C305555495435436F4C6A57395032413D3D
+
+# MFA SMS
+cas.authn.mfa.simple.sms.from=10008663
+cas.authn.mfa.simple.sms.text=%s
+cas.authn.mfa.simple.sms.attributeName=tel
+
+
+## MONGO DB 
+## MongoDB Setting
+mongo.db:     parssodb
+mongo.rs:     rs0
+mongo.opts:   &ssl=false
+mongo.creds:  mongoparsso:changeitAPA
+mongo.hosts:  parsso.razi.ac.ir:27017, pars2.razi.ac.ir:27017
+
+# The connection string, assembled
+mongo.uri:      mongodb://${mongo.creds}@${mongo.hosts}/${mongo.db}?replicaSet=${mongo.rs}${mongo.opts}
+
+# Service registry
+cas.serviceRegistry.mongo.clientUri:    ${mongo.uri}
+#cas.serviceRegistry.mongo.collection:   casServiceRegistryyyy
+cas.serviceRegistry.mongo.collection=casServiceRegistry
+cas.serviceRegistry.mongo.databaseName=parssodb
+
+## Service Registry Init (to be removed after init)
+#cas.serviceRegistry.initFrom
+Json:      true

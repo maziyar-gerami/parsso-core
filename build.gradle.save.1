@@ -1,0 +1,163 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+        jcenter()
+        maven { 
+            url "https://repo.spring.io/libs-milestone" 
+            mavenContent { releasesOnly() }
+        }
+        maven { 
+            url "https://repo.spring.io/libs-snapshot" 
+            mavenContent { snapshotsOnly() }
+        }
+        maven { 
+            url "https://plugins.gradle.org/m2/" 
+            mavenContent { releasesOnly() }
+        }
+	maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath "de.undercouch:gradle-download-task:${project.gradleDownloadTaskVersion}"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${project.springBootVersion}"
+        classpath "gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:${project.jibVersion}"
+        classpath "io.freefair.gradle:maven-plugin:${project.gradleMavenPluginVersion}"
+        classpath "io.freefair.gradle:lombok-plugin:${project.gradleLombokPluginVersion}"
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { 
+        url "https://oss.sonatype.org/content/repositories/snapshots" 
+        mavenContent { snapshotsOnly() }
+    }
+    maven { 
+        mavenContent { releasesOnly() }
+        url "https://build.shibboleth.net/nexus/content/repositories/releases/" 
+    }
+    maven { 
+        mavenContent { releasesOnly() }
+        url "https://repo.spring.io/milestone/" 
+    }
+    maven { 
+        url "https://repo.spring.io/snapshot/" 
+        mavenContent { snapshotsOnly() }
+    }
+    //maven { 
+        //mavenContent { snapshotsOnly() }
+        //url "https://oss.jfrog.org/artifactory/oss-snapshot-local" 
+    //}
+
+maven { url "https://jitpack.io" }
+}
+
+def casServerVersion = project.'cas.version'
+def casWebApplicationBinaryName = "cas.war"
+
+project.ext."casServerVersion" = casServerVersion
+project.ext."casWebApplicationBinaryName" = casWebApplicationBinaryName
+
+apply plugin: "io.freefair.war-overlay"
+apply plugin: "io.freefair.lombok"
+apply from: rootProject.file("gradle/tasks.gradle")
+
+apply plugin: "war"
+apply plugin: "eclipse"
+apply plugin: "idea"
+
+apply from: rootProject.file("gradle/springboot.gradle")
+apply from: rootProject.file("gradle/dockerjib.gradle")
+
+dependencies {
+    // Add modules in format compatible with overlay casModules property
+    if (project.hasProperty("casModules")) {
+        def dependencies = project.getProperty("casModules").split(",")
+        dependencies.each {
+            def projectsToAdd = rootProject.subprojects.findAll {project ->
+                project.name == "cas-server-core-${it}" || project.name == "cas-server-support-${it}"
+            }
+            projectsToAdd.each {implementation it}
+        }
+    }
+    // CAS dependencies/modules may be listed here statically...
+    implementation "org.apereo.cas:cas-server-webapp-init:${casServerVersion}"
+
+
+
+// Other CAS dependencies/modules may be listed here...	
+    compile ( "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}")	
+    {	
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'	
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'	
+    }	
+    compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
+compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
+    compile "org.springframework.cloud:spring-cloud-context:2.2.0.RELEASE"
+    compile "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-saml:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-simple-mfa:${project.'cas.version'}"
+    
+    // For updating MFA Token
+    // compile "org.apereo.cas:cas-server-core-tickets-api:${project.'cas.version'}"
+    
+    // For SMS MFA
+    compile "org.apereo.cas:cas-server-core-util-api:${project.'cas.version'}"
+    compile "com.github.kavenegar:kavenegar-java:v2.0.1"
+    
+    // To store ticketRegistry in mongoDB
+    // compile "org.apereo.cas:cas-server-support-mongo-ticket-registry:${casServerVersion}"
+
+    // To generate events and store them in mongoDB    
+    compile "org.apereo.cas:cas-server-core-events:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-events-mongo:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-audit-mongo:${project.'cas.version'}"
+    // To support SAML Protocol
+    compile "org.apereo.cas:cas-server-support-saml-idp:${project.'cas.version'}"
+    
+    // To support Google Authenticator
+    compile "org.apereo.cas:cas-server-support-gauth:${project.'cas.version'}"
+    // To support ACCEPTTO
+    //compile "org.apereo.cas:cas-server-support-acceptto-mfa:${project.'cas.version'}"
+compile "org.apereo.cas:cas-server-core-notifications:${project.'cas.version'}"
+
+}
+
+tasks.findByName("jibDockerBuild")
+    .dependsOn(copyWebAppIntoJib, copyConfigIntoJib)
+    .finalizedBy(deleteWebAppFromJib)
+
+tasks.findByName("jib")
+    .dependsOn(copyWebAppIntoJib, copyConfigIntoJib)
+    .finalizedBy(deleteWebAppFromJib)
+
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 0, "seconds"
+        cacheDynamicVersionsFor 0, "seconds"
+
+        preferProjectModules()
+
+        def failIfConflict = project.hasProperty("failOnVersionConflict") && Boolean.valueOf(project.getProperty("failOnVersionConflict"))
+        if (failIfConflict) {
+            failOnVersionConflict()
+        }
+    }
+}
+
+eclipse {
+    classpath {
+       downloadSources = true
+       downloadJavadoc = true
+    }
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}

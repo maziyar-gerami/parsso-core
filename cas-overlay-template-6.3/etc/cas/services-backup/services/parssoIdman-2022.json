@@ -1,0 +1,12 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "https://parsso.razi.ac.ir/login/cas",
+  "name" : "Parsso Idman",
+  "id" : 1504122844,
+  "description" : "CAS development Apache mod_auth_cas server with protection",
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  },
+  "evaluationOrder" : 1104
+}
+
