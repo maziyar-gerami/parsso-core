@@ -1,4 +1,3 @@
-
 buildscript {
     repositories {
         mavenLocal()
@@ -92,11 +91,12 @@ dependencies {
 // Other CAS dependencies/modules may be listed here...	
     compile ( "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}")	
     {	
-        exclude group: 'org.springframework.cloud', module: 'spring-cloud-commons'	
+        exclude 
+group: 'org.springframework.cloud', module: 'spring-cloud-commons'	
         exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'	
     }	
     compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
-    compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
+compile "org.springframework.cloud:spring-cloud-commons:2.2.0.RELEASE"
     compile "org.springframework.cloud:spring-cloud-context:2.2.0.RELEASE"
     compile "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-saml:${project.'cas.version'}"
@@ -123,18 +123,20 @@ dependencies {
     compile "org.apereo.cas:cas-server-support-gauth:${project.'cas.version'}"
     // To support ACCEPTTO
     //compile "org.apereo.cas:cas-server-support-acceptto-mfa:${project.'cas.version'}"
-    // To support QRLogin
-    compile "org.apereo.cas:cas-server-core-notifications:${project.'cas.version'}"
-    compile "org.apereo.cas:cas-server-core-api-configuration-model:${project.'cas.version'}"
-    //compile "org.apereo.cas:cas-server-support-qr-authentication:${project.'cas.version'}"
 
-    // To support config server
-    compile "org.apereo.cas:cas-server-webapp-config-server:${project.'cas.version'}"
-    //compile "org.apereo.cas:cas-server-support-configuration-cloud-mongo:${project.'cas.version'}"
+compile "org.apereo.cas:cas-server-core-notifications:${project.'cas.version'}"
+
+compile "org.apereo.cas:cas-server-core-api-configuration-model:${project.'cas.version'}"
+
+compile "org.apereo.cas:cas-server-support-qr-authentication:${project.'cas.version'}"
 
 //for risk-based authentication
 // https://mvnrepository.com/artifact/org.apereo.cas/cas-server-support-electrofence
-// compile group: 'org.apereo.cas', name: 'cas-server-support-electrofence', version: '6.3.0'
+// https://mvnrepository.com/artifact/org.apereo.cas/cas-server-support-electrofence
+compile group: 'org.apereo.cas', name: 'cas-server-support-electrofence', version: '6.3.0'
+
+
+
 }
 
 tasks.findByName("jibDockerBuild")

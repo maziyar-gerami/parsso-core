@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">پارسو</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{#{webjars.fontawesomemin.css}}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{#{webjars.bootstrapmin.css}}"/>
+
+    <!--/* Core CAS CSS */-->
+    <link rel="stylesheet" type="text/css" href="../static/css/cas.css" th:href="@{${#themes.code('cas.standard.css.file')}}"/>
+    <!--/* Core Parsso CSS */-->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-rtl.css" th:href="@{${#themes.code('parsso.bootstrap.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/app.css" th:href="@{${#themes.code('parsso.app.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/quill.core.css" th:href="@{${#themes.code('parsso.app.quill.core.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/quill.snow.css" th:href="@{${#themes.code('parsso.app.quill.snow.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/IranSans.css" th:href="@{${#themes.code('parsso.iransans.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css" th:href="@{${#themes.code('parsso.fontawesome.css.file')}}" />
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon"/>
+    
+</head>
+
+<body>
+
+<div id="overlay">
+    <div id="overlayContent">
+        <div id="overlayBody"></div>
+        <div id="closeOverlay" onclick="closeOverlay()">بازگشت</div>
+    </div>
+</div>
+
+<script th:replace="fragments/scripts" />
+
+<div th:replace="fragments/header :: header">
+    <a href="fragments/header.html">Header</a> fragment will go here
+</div>
+
+<div class="mdc-drawer-scrim"></div>
+
+<div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust d-flex justify-content-center">
+    <main role="main" id="main-content" class="container-lg pt-2 pb-5">
+        <div layout:fragment="content" id="content">
+            CAS content will go here
+        </div>
+    </main>
+</div>
+
+<div th:replace="fragments/footer :: footer">
+    <a href="fragments/footer.html">Footer</a> fragment will go here
+</div>
+
+<script>
+    let bodyArray = [];
+    let titleArray = [];
+    let dateArray = [];
+    function openOverlay() {
+        document.getElementById("overlay").style.display = "block";
+    }
+    function closeOverlay() {
+        document.getElementById("overlay").style.display = "none";
+    } 
+    function showNotification(i) {
+        document.getElementById("overlayBody").innerHTML = 
+        `<div id="overlayBodyHeader">
+         <h2>${titleArray[i]}</h2>
+         <small>${dateArray[i]}</small>
+        </div>` + bodyArray[i];
+        openOverlay();
+    }
+    async function getNotifications() {
+        let url = "/api/public/publicMessages";
+        try {
+            let res = await fetch(url);
+            return await res.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async function renderNotifications() {
+        let notifications = await getNotifications();
+        let html = "";
+        let i = 0;
+        notifications.slice().reverse().forEach(notification => {
+            let htmlSegment = `<li style="background-color: #f4cf0361;border-radius: 4px;" class="m-2 p-1">
+                                <a href="#" onclick="showNotification(${i})" style="text-decoration: none;">${notification.title}</a>
+                                <div style="left: 0;text-align: left;">
+                                 <p style="left: 0;" class="sidebar-content m-0">${notification.createTime.year}/${notification.createTime.month}/${notification.createTime.day}</p>
+                                </div>
+                               </li>`;
+
+            html += htmlSegment;
+            bodyArray.push(notification.body);
+            titleArray.push(notification.title);
+            dateArray.push(notification.createTime.year + "/" + notification.createTime.month + "/" + notification.createTime.day);
+            i = i + 1;
+        });
+
+        let container = document.getElementById("parssoNotificationsList");
+        container.innerHTML = html;
+    }
+    renderNotifications();
+</script>
+
+</body>
+</html>
