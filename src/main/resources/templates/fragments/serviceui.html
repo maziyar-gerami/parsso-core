@@ -41,8 +41,7 @@
 
             <div th:unless="${serviceUIMetadata}" class="d-flex align-items-center p-2">
                 <div id="servicedesc" class="mr-auto">
-                    <h5 th:text="${registeredService.name}">Registered Service Name</h5>
-                    <p class="mb-0" th:text="${registeredService.description}">Registered Service Description</p>
+                    <h5 th:text="${registeredService.description}">Registered Service Description</h5>
                 </div>
                 <img class="ml-auto" th:src="${registeredService.logo} ? ${registeredService.logo} : @{'images/webapp.png'}" style="max-width: 150px; max-height: 150px;" />
             </div>

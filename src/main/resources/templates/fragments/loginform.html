@@ -14,7 +14,12 @@
 <main role="main" class="container mt-3 mb-3">
     <!-- Login form template begins here -->
     <div th:fragment="loginform" class="d-flex flex-column m-auto card-body pb-4 h-100 card parsso-bgc">
-        <div class="form-wrapper">
+        <div th:if="${delegatedAuthenticationProviderPrimary == null}">
+            <div class="service-ui" th:replace="fragments/serviceui :: serviceUI">
+                <a href="fragments/serviceui.html">service ui fragment</a>
+            </div>
+        </div>
+        <div class="form-wrapper mt-3">
             <form method="post" id="fm1" th:object="${credential}" action="login">
 
                 <div th:if="${existingSingleSignOnSessionAvailable}">
@@ -27,12 +32,12 @@
                     <span th:utext="#{screen.welcome.instructions}">Enter your Username and Password:</span>
                 </h5>
 
-                <div id="loginErrorsPanel" class="banner banner-danger" th:if="${#fields.hasErrors('*')}" style="background: #dc3545;">
+                <div id="loginErrorsPanel" class="alert alert-danger banner banner-danger" th:if="${#fields.hasErrors('*')}">
                     <p th:each="err : ${#fields.errors('*')}" th:utext="${err + ' '}">Example error</p>
                     <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
                 </div>
                 
-                <section class="cas-field my-3" id="usernameSection">
+                <section class="cas-field" id="usernameSection">
                     <div class="d-flex">
 
                         <label for="username" class="mdc-text-field mdc-text-field--outlined">
@@ -71,7 +76,7 @@
                     </div>
                 </section>
 
-                <section class="cas-field my-3 mdc-input-group">
+                <section class="cas-field mdc-input-group">
                     <div class="mdc-input-group-field mdc-input-group-field-append">
                         <div class="d-flex caps-check">
 
@@ -173,7 +178,7 @@
                     </div>
                 </section>
                 
-                <section class="cas-field my-3">
+                <section class="cas-field">
                     <div th:each="entry: ${customLoginFormFields}">
                         <label class="mdc-text-field mdc-text-field--outlined">
                             <input class="mdc-text-field__input"
@@ -249,7 +254,7 @@
                    th:text="#{screen.welcome.button.loginx509}">X509 Login</a>
             </div>
 
-            <hr class="my-4"/>
+            <hr class="my-2"/>
 
             <span id="webauthnLoginPanel" th:if="${webAuthnPrimaryAuthenticationEnabled}">
                     <script type="text/javascript">

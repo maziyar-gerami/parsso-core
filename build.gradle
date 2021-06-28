@@ -126,15 +126,20 @@ dependencies {
     // To support QRLogin
     compile "org.apereo.cas:cas-server-core-notifications:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-core-api-configuration-model:${project.'cas.version'}"
-    //compile "org.apereo.cas:cas-server-support-qr-authentication:${project.'cas.version'}"
-
+    compile "org.apereo.cas:cas-server-support-qr-authentication:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-rest:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-rest-tokens:${project.'cas.version'}"
     // To support config server
     compile "org.apereo.cas:cas-server-webapp-config-server:${project.'cas.version'}"
     //compile "org.apereo.cas:cas-server-support-configuration-cloud-mongo:${project.'cas.version'}"
 
-//for risk-based authentication
-// https://mvnrepository.com/artifact/org.apereo.cas/cas-server-support-electrofence
-// compile group: 'org.apereo.cas', name: 'cas-server-support-electrofence', version: '6.3.0'
+    //for risk-based authentication
+    // https://mvnrepository.com/artifact/org.apereo.cas/cas-server-support-electrofence
+    // compile group: 'org.apereo.cas', name: 'cas-server-support-electrofence', version: '6.3.0'
+    
+    // Magfa
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    implementation 'com.sun.xml.ws:jaxws-ri:2.3.2'
 }
 
 tasks.findByName("jibDockerBuild")

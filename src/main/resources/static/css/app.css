@@ -1,13 +1,19 @@
 
 body {
-  background: url("../images/pixle-background.jpg") top center repeat-x;
+    height: 100%;
+    margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 body, h1, h2, h3, h4, h5, h6 {
   font-family: IRANSans, Helvetica, Arial, sans-serif;
 }
 html{
-	direction:rtl;
+    direction:rtl;
+    height: 100%;
+    margin: 0;
 }
 /*
 // Views
@@ -123,7 +129,7 @@ footer {
     bottom: 20px;
     right: 20px;
     width: 100px;
-    color: black;
+    color: white;
     background-color: #dc3545;
     border-radius: 5px;
     z-index: 12;

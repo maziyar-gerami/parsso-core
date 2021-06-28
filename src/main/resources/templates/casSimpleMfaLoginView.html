@@ -35,9 +35,10 @@
                 </div>
             </div>
             <input type="hidden" id="eventId" name="_eventId" value="submit" />
-            <input class="btn btn-submit" accesskey="l" th:value="#{screen.welcome.button.login}" tabindex="4" type="submit"/>
+            <input class="btn btn-submit" accesskey="l" th:value="#{screen.welcome.button.login}" tabindex="4" type="submit" style="color: white;"/>
             &nbsp;
-            <input class="btn btn-submit" type="submit" name="resend" th:value="#{cas.mfa.simple.label.resend}" onclick="$('#eventId').val('resend');" />
+            <input class="btn btn-submit" type="submit" name="resend" th:value="#{cas.mfa.simple.label.resend}" onclick="$('#eventId').val('resend');" 
+		style="color: white;"/>
             <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
             <input type="hidden" name="geolocation"/>
         </form>
