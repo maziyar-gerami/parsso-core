@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">پارسو</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{#{webjars.fontawesomemin.css}}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{#{webjars.bootstrapmin.css}}"/>
+
+    <!--/* Core CAS CSS */-->
+    <link rel="stylesheet" type="text/css" href="../static/css/cas.css" th:href="@{${#themes.code('cas.standard.css.file')}}"/>
+    <!--/* Core Parsso CSS */-->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-rtl.css" th:href="@{${#themes.code('parsso.bootstrap.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/app.css" th:href="@{${#themes.code('parsso.app.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/quill.core.css" th:href="@{${#themes.code('parsso.app.quill.core.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/quill.snow.css" th:href="@{${#themes.code('parsso.app.quill.snow.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/IranSans.css" th:href="@{${#themes.code('parsso.iransans.css.file')}}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css" th:href="@{${#themes.code('parsso.fontawesome.css.file')}}" />
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon"/>
+
+	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{${#themes.code('parsso.theme1.bootstrap.css')}}">
+	<link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{${#themes.code('parsso.theme1.fa.css')}}">
+	<link rel="stylesheet" type="text/css" href="../static/css/parsso-theme1-util.css" th:href="@{${#themes.code('parsso.theme1.util.css')}}">
+	<link rel="stylesheet" type="text/css" href="../static/css/parsso-theme1-main.css" th:href="@{${#themes.code('parsso.theme1.main.css')}}">
+    
+</head>
+
+<body>
+
+<div id="overlay">
+    <div id="overlayContent">
+        <div id="overlayBody"></div>
+        <div id="closeOverlay" onclick="closeOverlay()">بازگشت</div>
+    </div>
+</div>
+
+<script th:replace="fragments/scripts" />
+
+<div class="mdc-drawer-scrim"></div>
+
+<div class="limiter">
+		<div class="container-login">
+			<div class="wrap-login">
+				<div class="login-form validate-form">
+					<div class="rtl-content">
+						<div class="flex-sb-m w-full logo-container">
+                        				<a href="/">
+								<img th:src="@{${#themes.code('clienticon.img.file')}}" class="responsive-logo">
+							</a>
+							<div th:if="${registeredService}">
+                        					<img th:src="${registeredService.logo} ? ${registeredService.logo} : @{${#themes.code('webapp.img.file')}}" class="responsive-logo">
+							</div>
+							<div th:unless="${registeredService}">
+                                                                <img th:src="@{${#themes.code('webapp.img.file')}}" class="responsive-logo">
+                                                        </div>
+                				</div>
+						<main role="main" id="main-content">
+							<div layout:fragment="content" id="content">
+								CAS content will go here
+							</div>
+						</main>
+						<div class="flex-c-m w-full">
+							<img th:src="@{${#themes.code('parsso.theme1.img1.png')}}" class="footer-img">
+						</div>
+						<hr class="divider ml-5 mr-5 mt-4 mb-4">
+						<div class="pm-mobile">
+							<h6 class="pm-text pb-1">اعلان ها</h6>
+							<div class="parssoNotificationsList"></div>
+							<a href="https://pars-sso.ir/" target="_blank">
+								<img src="images/logo-parsso.png" class="footer-logo">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="login-more">
+					<div class="triangle"></div>
+					<img th:src="@{${#themes.code('parsso.theme1.login.png')}}" class="images">
+					<div class="pm-container">
+                                        	<div class="container pm-toggle mt-3">
+                                                	<div class="pm-triangle"></div>
+                                                	<h6 class="pm-text">اعلان ها</h6>
+                                                	<div class="parssoNotificationsList"></div>
+                                        	</div>
+                                	</div>
+					<a href="https://pars-sso.ir/" target="_blank">
+                                                <img th:src="@{${#themes.code('parssoicon.img.file')}}" class="footer-logo">
+                                        </a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../static/vendor/jquery/jquery-3.2.1.min.js" th:src="@{${#themes.code('parsso.theme1.jquery.js')}}"></script>
+	<script src="../static/vendor/bootstrap/js/popper.js" th:src="@{${#themes.code('parsso.theme1.popper.js')}}"></script>
+	<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{${#themes.code('parsso.theme1.bootstrap.js')}}"></script>
+	<script>
+		(function ($){
+			"use strict";
+
+			$(document).ready(function () {
+				$(".pm-toggle").on("click",function(){
+					$(".pm-container").toggleClass("pm-container-toggle");
+				});
+
+				$(".pm-toggle").on("click",function(){
+					$(".pm-triangle").toggleClass("pm-triangle-toggle");
+				});
+				
+				$(".pm-toggle").on("click",function(){
+                                        $(".parssoNotificationsList").toggleClass("parssoNotificationsList-toggle");
+                                });
+
+				$(".login1").on("click",function(){
+					$(".images").attr("src", "/cas/images/login-img.png");
+				});
+
+				$(".login2").on("click",function(){
+					$(".images").attr("src", "/cas/images/login-qr-img.png");
+				});
+
+				$(".login3").on("click",function(){
+					$(".images").attr("src", "/cas/images/login-passwordless-img.png");
+				});
+			});
+
+			$( document ).ready(function(){
+				$(".input").each(function(){
+					if($(this).val().trim() != ""){
+						$(this).addClass("has-val");
+					}
+					else {
+						$(this).removeClass("has-val");
+					}
+				});
+
+				$(".input").each(function(){
+					$(this).on("blur", function(){
+						if($(this).val().trim() != ""){
+							$(this).addClass("has-val");
+						}
+						else {
+							$(this).removeClass("has-val");
+						}
+					})    
+				});
+			});
+
+			var input = $(".validate-input .input");
+			var inputPasswordless = $(".validate-input-passwordless .input");
+
+			$(".login-form-btn").on("click",function(){
+				let check = true;
+
+				for(let i = 0; i < input.length; i++){
+					if(validate(input[i]) == false){
+						showValidate(input[i]);
+						check = false;
+					}
+				}
+
+				return check;
+			});
+
+			$(".passwordless-login-form-btn").on("click",function(){
+				let check = true;
+
+				for(let i = 0; i < inputPasswordless.length; i++){
+					if(validate(inputPasswordless[i]) == false){
+						showValidate(inputPasswordless[i]);
+						check = false;
+					}
+				}
+
+				return check;
+			});
+
+			$(".validate-form .input").each(function(){
+				$(this).focus(function(){
+				hideValidate(this);
+				});
+			});
+
+			function validate (input){
+				if($(input).val().trim() == ""){
+					return false;
+				}
+			}
+
+			function showValidate(input){
+				var thisAlert = $(input).parent();
+
+				$(thisAlert).addClass("alert-validate");
+			}
+
+			function hideValidate(input){
+				var thisAlert = $(input).parent();
+
+				$(thisAlert).removeClass("alert-validate");
+			}
+			
+
+		})(jQuery);
+	</script>
+
+<script>
+    let bodyArray = [];
+    let titleArray = [];
+    let dateArray = [];
+    function openOverlay() {
+        document.getElementById("overlay").style.display = "block";
+    }
+    function closeOverlay() {
+        document.getElementById("overlay").style.display = "none";
+    } 
+    function showNotification(i) {
+        document.getElementById("overlayBody").innerHTML = 
+        `<div id="overlayBodyHeader">
+         <h2>${titleArray[i]}</h2>
+         <small>${dateArray[i]}</small>
+        </div>
+	<div class="ql-editor">${bodyArray[i]}</div>`;
+        openOverlay();
+    }
+    async function getNotifications() {
+        let url = "/api/public/publicMessages";
+        try {
+            let res = await fetch(url);
+            return await res.json();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async function renderNotifications() {
+        let notifications = await getNotifications();
+        let html = "";
+        let i = 0;
+        notifications.slice().reverse().forEach(notification => {
+            let htmlSegment = `<li style="background-color: #f4f4f4;border-radius: 4px;" class="m-2 p-1">
+                                <a href="#" onclick="showNotification(${i})" style="text-decoration: none;">${notification.title}</a>
+                                <div style="left: 0;text-align: left;">
+                                 <p style="left: 0;" class="sidebar-content m-0">${notification.createTime.year}/${notification.createTime.month}/${notification.createTime.day}</p>
+                                </div>
+                               </li>`;
+
+            html += htmlSegment;
+            bodyArray.push(notification.body);
+            titleArray.push(notification.title);
+            dateArray.push(notification.createTime.year + "/" + notification.createTime.month + "/" + notification.createTime.day);
+            i = i + 1;
+        });
+
+        let container = document.getElementsByClassName("parssoNotificationsList");
+        container[0].innerHTML = html;
+	container[1].innerHTML = html;
+    }
+    renderNotifications();
+</script>
+
+</body>
+</html>

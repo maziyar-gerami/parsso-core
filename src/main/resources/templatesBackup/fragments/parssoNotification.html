@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>loginProviders Fragment</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag"/>
+</head>
+<body>
+<main role="main" class="container mt-3 mb-3">
+    <div th:fragment="parssoNotification" class="d-flex flex-column m-auto card-body pb-4 h-100 card parsso-bgc">
+        <div class="d-flex align-items-center justify-content-around w-100">
+            <img th:src="@{${#themes.code('clienticon.img.file')}}" style="max-width: 100px; max-height: 100px;" />
+        </div>
+        <hr class="my-3">
+        <div class="w-100">
+            <h5>اعلان های عمومی</h5>
+            <div class="mt-3" style="overflow: auto;height: 250px;">
+                <ul id="parssoNotificationsList" style="list-style: none;padding: 0;">
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

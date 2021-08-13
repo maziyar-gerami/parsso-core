@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Header Fragment</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag"/>
+</head>
+<body>
+<div th:fragment="header">
+    <header id="app-bar" class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4">
+        <nav class="mdc-top-app-bar__row navbar">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"></section>
+            <section class="mdc-top-app-bar__section">
+                <span class="cas-brand mx-auto">
+                    <img class="cas-logo"
+                        title="Parsso"
+                        th:src="@{${#themes.code('parssoicon.img.file')}}"
+                        style="max-height: 50px;" />
+                </span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"></section>
+        </nav>
+    </header>
+</div>
+</body>
+</html>

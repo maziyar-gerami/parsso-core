@@ -23,4 +23,5 @@ chmod g-w,o-rwx /etc/cas/config/
 
 systemctl start tomcat
 echo "Installation complete."
+tail -f  /opt/tomcat/latest/logs/catalina.out
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title th:text="#{cas.login.pagetitle}">CAS Login View</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+
+</head>
+
+<body class="login mdc-typography">
+    <div layout:fragment="content">
+        <div>	
+		<div class="content">
+			<ul class="nav nav-pills" role="tablist">
+				<li class="nav-item3">
+					<a class="login1 nav-link active" data-toggle="pill" href="#login1">ورود</a>
+				</li>
+				<li class="nav-item3">
+					<a class="login2 nav-link" data-toggle="pill" href="#login2">QR Code</a>
+				</li>
+				<li class="nav-item3">
+					<a class="login3 nav-link" data-toggle="pill" href="#login3">رمز پویا</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div id="login1" class="container tab-pane active">
+					<div th:if="${registeredService}">
+						<h5 class="serviceui-name" th:text="${registeredService.description}">سامانه احراز هویت</h5>
+					</div>
+					<section id="loginForm" th:if="${@casThymeleafLoginFormDirector.isLoginFormViewable(#vars)}">
+						<div th:replace="fragments/loginform :: loginform">
+							<a href="fragments/loginform.html">Login Form goes here</a>
+						</div>
+					</section>
+				</div>
+				<div id="login2" class="container tab-pane fade">
+					<section id="qrlogin" th:if="${qrAuthenticationEnabled}">
+						<div th:replace="fragments/qrAuthentication :: qrAuthentication">
+							<a href="fragments/qrAuthentication.html">qrAuthentication</a>
+						</div>
+					</section>
+				</div>
+				<div id="login3" class="container tab-pane fade">
+					<section id="pwdLessloginForm" th:if="${@casThymeleafLoginFormDirector.isLoginFormViewable(#vars)}">
+						<div th:replace="fragments/pwdLessLoginForm :: pwdLessLoginForm">
+							<a href="fragments/pwdLessLoginForm.html">Login Form goes here</a>
+						</div>
+					</section>
+				</div>
+				<div class="flex-r-m w-full p-3 links">
+                	                <div>
+                                                <a href="../public/Parsso-User-Guide.pdf" class="txt1" target="_blank">
+                                                                                                        راهنما
+                                                </a>
+                                        </div>
+					<div class="main-color mx-2">|</div>
+                                        <div>
+                                                <a href="../resetpassword" class="txt1" target="_blank">
+                                                                                                        فراموشی گذرواژه
+                                                </a>
+                                        </div>
+                                </div>
+			</div>
+		</div>
+        </div>
+    </div>
+</body>
+
+</html>

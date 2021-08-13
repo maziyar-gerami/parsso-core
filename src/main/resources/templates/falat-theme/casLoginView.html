@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title th:text="#{cas.login.pagetitle}">CAS Login View</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+
+</head>
+
+<body class="login mdc-typography">
+    <div layout:fragment="content">
+        <div>	
+		<div class="content">
+			<div class="tab-content">
+				<div id="getUsername" class="container tab-pane active">
+                                        <div th:if="${registeredService}">
+                                                <h5 class="serviceui-name" th:text="${registeredService.description}">سامانه احراز هویت</h5>
+                                        </div>
+					<div class="wrap-input validate-input text-right" data-validate = "نام کاربری الزامی است">
+                        			<input class="input"
+                            				id="tempUsername"
+	                            			size="25"
+        	                    			type="text"
+                	            			autocomplete="off"
+                        	    			placeholder="شماره پرسنلی"/>
+                        			<span class="focus-input"></span>
+                        			<span class="label-input">نام کاربری</span>
+                    			</div>
+                                        <div class="flex-se">
+						<div class="container-login-form-btn txt1">
+					            <button class="passwordless-login-form-btn login1Btn" type="button" style="width: 30%">
+						            <span class="mdc-button__label" style="color: #ffffff;">ورود با رمز عبور</span>
+					            </button>
+						    <button class="passwordless-login-form-btn login3Btn" type="button" style="width: 30%">
+                                                            <span class="mdc-button__label" style="color: #ffffff;">ورود با رمز پویا</span>
+                                                    </button>
+						    <button class="passwordless-login-form-btn login2Btn" type="button" style="width: 30%">
+                                                            <span class="mdc-button__label" style="color: #ffffff;">ورود با کد زمانی</span>
+                                                    </button>
+					        </div>
+					</div>
+                                </div>
+				<div id="login1" class="container tab-pane fade">
+					<div th:if="${registeredService}">
+						<h5 class="serviceui-name" th:text="${registeredService.description}">سامانه احراز هویت</h5>
+					</div>
+					<section id="loginForm" th:if="${@casThymeleafLoginFormDirector.isLoginFormViewable(#vars)}">
+						<div th:replace="fragments/loginform :: loginform">
+							<a href="fragments/loginform.html">Login Form goes here</a>
+						</div>
+					</section>
+				</div>
+				<!--<div id="login2" class="container tab-pane fade">
+				</div>-->
+				<div id="login3" class="container tab-pane fade">
+					<!--<section id="casPasswordlessGetUserIdView" th:if="${@casThymeleafLoginFormDirector.isLoginFormViewable(#vars)}">
+						<div th:replace="casPasswordlessGetUserIdView :: casPasswordlessGetUserIdView">
+							<a href="casPasswordlessGetUserIdView.html">Login Form goes here</a>
+						</div>
+					</section>-->
+				</div>
+				<div class="flex-r-m w-full p-3 links">
+                	                <div>
+                                                <a href="../public/Parsso-User-Guide.pdf" class="txt1" target="_blank">
+                                                                                                        راهنما
+                                                </a>
+                                        </div>
+					<div class="main-color mx-2">|</div>
+                                        <div>
+                                                <a href="../resetpassword" class="txt1" target="_blank">
+                                                                                                        فراموشی گذرواژه
+                                                </a>
+                                        </div>
+                                </div>
+			</div>
+		</div>
+        <script>
+		(function ($){
+			"use strict";
+
+			$(document).ready(function () {
+				$(".login1Btn").on("click",function(){
+					$("#login1").find("#username").val($("#tempUsername").val());
+					$(".login1").toggleClass("active");
+					$(".login1").toggleClass("fade");
+					$(".getUsername").toggleClass("active");
+					$(".getUsername").toggleClass("fade");
+					$(".images").attr("src", "/cas/images/login-img.png");
+				});
+
+				$(".login2Btn").on("click",function(){
+					<!--$(".login2").toggleClass("active");
+					$(".login2").toggleClass("fade");
+                                        $(".getUsername").toggleClass("active");
+					$(".getUsername").toggleClass("fade");
+        	                	$(".images").attr("src", "/cas/images/login-qr-img.png");-->
+					alert("(درحال راه اندازی)\nدرحال حاضر استفاده از این گزینه امکان پذیر نمی باشد.");
+				});
+
+	                        $(".login3Btn").on("click",function(){
+					$(".login3").toggleClass("active");
+					$(".login3").toggleClass("fade");
+                                        $(".getUsername").toggleClass("active");
+					$(".getUsername").toggleClass("fade");
+                        		$(".images").attr("src", "/cas/images/login-passwordless-img.png");
+                        	});
+				
+				$("#login1").find(".back-btn").on("click",function(){
+                                        $(".login1").toggleClass("active");
+                                        $(".login1").toggleClass("fade");
+                                        $(".getUsername").toggleClass("active");
+                                        $(".getUsername").toggleClass("fade");
+                                });
+
+				<!--$("#login3").find(".back-btn").on("click",function(){
+                                        $(".login3").toggleClass("active");
+                                        $(".login3").toggleClass("fade");
+                                        $(".getUsername").toggleClass("active");
+                                        $(".getUsername").toggleClass("fade");
+                                });-->
+			});
+		})(jQuery);
+	</script>
+	</div>
+    </div>
+</body>
+
+</html>

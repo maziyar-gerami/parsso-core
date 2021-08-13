@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title th:text="#{cas.login.pagetitle}">CAS Login View</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+
+</head>
+
+<body class="login mdc-typography">
+    <div layout:fragment="content">
+        <div>
+		<div class="flex-sb-m w-full logo-container">
+			<img src="images/iooc-logo.png" class="responsive-logo">
+			<img src="images/razi-logo.png" class="responsive-logo">
+		</div>
+		
+		<div class="content">
+			<ul class="nav nav-pills" role="tablist">
+				<li class="nav-item3">
+					<a class="login1 nav-link active" data-toggle="pill" href="#login1">ورود</a>
+				</li>
+				<li class="nav-item3">
+					<a class="login2 nav-link" data-toggle="pill" href="#login2">QR Code</a>
+				</li>
+				<li class="nav-item3">
+					<a class="login3 nav-link" data-toggle="pill" href="#login3">رمز پویا</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div id="login1" class="container tab-pane active">
+					<h5 class="serviceui-name">سامانه احراز هویت</h5>
+					<div class="wrap-input validate-input text-right" data-validate = "نام کاربری الزامی است">
+						<input class="input" type="text" name="parssoUID" placeholder="شماره پرسنلی">
+						<span class="focus-input"></span>
+						<span class="label-input">نام کاربری</span>
+					</div>
+					<div class="wrap-input validate-input text-right" data-validate="گذرواژه الزامی است">
+						<input class="input" type="password" name="parssoPASS">
+						<span class="focus-input"></span>
+						<span class="label-input">گذرواژه</span>
+					</div>
+					<div class="container-login-form-btn">
+						<button class="login-form-btn">
+												ورود
+						</button>
+					</div>
+					<div class="flex-sb-m w-full p-t-15">
+						<div>
+							<a href="public/Parsso-User-Guide.pdf" class="txt1" target="_blank">
+													راهنما
+							</a>
+						</div>
+						<div>
+							<a href="resetpassword" class="txt1" target="_blank">
+													فراموشی گذرواژه
+							</a>
+						</div>
+					</div>
+				</div>
+				<div id="login2" class="container tab-pane fade">
+					<h5 class="serviceui-name">سامانه احراز هویت</h5>
+					<p>کد QR را با تلفن همراه خود اسکن کنید. اگر مشخصات شما تایید شود، به طور خودکار ورود پیدا می کنید.</p>
+					<img src="images/qr.png" class="qr-img">
+					<div class="flex-sb-m w-full p-t-15">
+					<div>
+						<a href="public/Parsso-User-Guide.pdf" class="txt1" target="_blank">
+													راهنما
+						</a>
+					</div>
+					<div>
+						<a href="resetpassword" class="txt1" target="_blank">
+													فراموشی گذرواژه
+						</a>
+					</div>
+					</div>
+				</div>
+				<div id="login3" class="container tab-pane fade">
+					<h5 class="serviceui-name">سامانه احراز هویت</h5>
+					<a href="" class="txt1">
+						<div class="container-login-form-btn">
+							<button class="passwordless-login-form-btn">
+													ورود با رمز پویا
+							</button>
+						</div>
+					</a>
+					<div class="flex-sb-m w-full p-t-15">
+						<div>
+							<a href="public/Parsso-User-Guide.pdf" class="txt1" target="_blank">
+													راهنما
+							</a>
+						</div>
+						<div>
+							<a href="resetpassword" class="txt1" target="_blank">
+													فراموشی گذرواژ											</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+            <section id="loginForm"
+                class="login-section login-form border-0 p-3"
+                th:if="${@casThymeleafLoginFormDirector.isLoginFormViewable(#vars)}">
+                <div th:replace="fragments/loginform :: loginform">
+                    <a href="fragments/loginform.html">Login Form goes here</a>
+                </div>
+            </section>
+            <section id="loginProviders" class="login-section login-providers p-3"
+                     th:if="${delegatedAuthenticationProviderConfigurations} OR ${wsfedUrls}">
+                <div th:replace="fragments/loginProviders :: loginProviders">
+                    <a href="fragments/loginProviders.html">loginProviders</a>
+                </div>
+            </section>
+            <section id="acceptto" class="login-section login-qr d-xs-none d-md-block p-3" th:if="${accepttoApplicationId}">
+                <div th:replace="fragments/accepttoQRCode :: accepttoQRCode">
+                    <a href="fragments/accepttoQRCode.html">accepttoQRCode</a>
+                </div>
+            </section>
+            <section id="qrlogin" class="login-section login-qr d-xs-none d-md-block p-3" th:if="${qrAuthenticationEnabled}">
+                <div th:replace="fragments/qrAuthentication :: qrAuthentication">
+                    <a href="fragments/qrAuthentication.html">qrAuthentication</a>
+                </div>
+            </section>
+ 	    <section id="pwdLessloginForm"
+                class="login-section login-form border-0 p-3"
+                th:if="${@casThymeleafLoginFormDirector.isLoginFormViewable(#vars)}">
+                <div th:replace="fragments/pwdLessLoginForm :: pwdLessLoginForm">
+                    <a href="fragments/pwdLessLoginForm.html">Login Form goes here</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</body>
+
+</html>

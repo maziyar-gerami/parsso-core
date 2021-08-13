@@ -176,9 +176,9 @@ button.close {
 }
 
 .banner-danger {
-    border-color: #b00020;
-    border-color: var(--cas-theme-danger, #b00020);
-    background-color: #dc3545;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
 
 .banner-danger .mdi {

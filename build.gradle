@@ -121,14 +121,14 @@ dependencies {
     
     // To support Google Authenticator
     compile "org.apereo.cas:cas-server-support-gauth:${project.'cas.version'}"
-    // To support ACCEPTTO
-    //compile "org.apereo.cas:cas-server-support-acceptto-mfa:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-gauth-mongo:${project.'cas.version'}"
     // To support QRLogin
     compile "org.apereo.cas:cas-server-core-notifications:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-core-api-configuration-model:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-qr-authentication:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-rest:${project.'cas.version'}"
     compile "org.apereo.cas:cas-server-support-rest-tokens:${project.'cas.version'}"
+    
     // To support config server
     compile "org.apereo.cas:cas-server-webapp-config-server:${project.'cas.version'}"
     //compile "org.apereo.cas:cas-server-support-configuration-cloud-mongo:${project.'cas.version'}"
@@ -140,6 +140,19 @@ dependencies {
     // Magfa
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
     implementation 'com.sun.xml.ws:jaxws-ri:2.3.2'
+
+    //Services on mongo
+    //implementation group: 'org.apereo.cas', name: 'cas-server-support-mongo-service-registry', version: '6.3.5'
+    
+    //For Passwordless Auth
+    implementation group: 'org.apereo.cas', name: 'cas-server-support-passwordless-webflow', version: '6.3.5'
+    implementation group: 'org.apereo.cas', name: 'cas-server-support-passwordless-ldap', version: '6.3.5'
+implementation group: 'org.apereo.cas', name: 'cas-server-core-webflow-api', version: '6.3.5'
+implementation group: 'org.apereo.cas', name: 'cas-server-core-webflow-mfa-api', version: '6.3.5'
+implementation group: 'org.apereo.cas', name: 'cas-server-core-authentication-api', version: '6.3.5'
+implementation group: 'org.apereo.cas', name: 'cas-server-core-webflow-mfa-api', version: '6.3.5'
+implementation group: 'org.apereo.cas', name: 'cas-server-support-actions', version: '6.3.5'
+implementation group: 'org.apereo.cas', name: 'cas-server-core-web-api', version: '6.3.5'
 }
 
 tasks.findByName("jibDockerBuild")
